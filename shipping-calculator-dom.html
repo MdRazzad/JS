@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Amazon Shipping Calculator</title>
+  </head>
+  <body>
+    <p>
+      Amazon Shipping Calculator:
+      <!-- Moved onkeydown to input field -->
+      <input class="JS-input" placeholder="Cost of order" type="text" onkeydown="oneKeyHold(event)">
+      <button onclick="calculateTotal(event)">Calculate</button>
+    </p>
+    <p class="JS-total"></p>
+
+    <script>
+      // Function to detect Enter key press
+      function oneKeyHold(event) {
+        // Fix: "enter" should be "Enter" (case-sensitive)
+        if (event.key === 'Enter') {
+          calculateTotal();
+        }
+      }
+
+      function calculateTotal() {
+        const inputElement = document.querySelector('.JS-input');
+        let cost = parseFloat(inputElement.value); // Convert input to number
+
+        if (isNaN(cost)) {
+          document.querySelector('.JS-total').innerHTML = "Please enter a valid number.";
+          return;
+        }
+
+        if (cost < 40) {
+          cost += 10; // Add shipping cost if order is below $40
+        }
+
+        document.querySelector('.JS-total').innerHTML = `Total cost: $${cost.toFixed(2)}`;
+      }
+    </script>
+  </body>
+</html>
